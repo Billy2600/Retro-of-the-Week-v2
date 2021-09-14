@@ -1,0 +1,4 @@
+<p *ngIf="!post"><em>Loading...</em></p>
+
+<h1>{{ post.title }}</h1>
+<div [innerHTML]=[post.text]></div>

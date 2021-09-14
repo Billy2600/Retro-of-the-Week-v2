@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace RetroOfTheWeek.Repositories
 {
@@ -33,7 +34,7 @@ namespace RetroOfTheWeek.Repositories
             {
                 post.Pid = reader.GetInt32(0);
                 post.Title = reader.IsDBNull(1) ? null : reader.GetString(1); // Need to perform this check on nullable DB values
-                post.Text = reader.IsDBNull(2) ? null : reader.GetString(2);
+                post.Text = reader.IsDBNull(2) ? null : Regex.Unescape(reader.GetString(2));
                 post.PosterId = reader.GetString(3);
                 post.Date = reader.GetDateTime(4);
                 post.Tags = reader.IsDBNull(5) ? null : reader.GetString(5);
