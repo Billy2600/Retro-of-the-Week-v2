@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +6,10 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MySql.Data.MySqlClient;
+using RetroOfTheWeek.DTOs;
+using RetroOfTheWeek.Models;
+using RetroOfTheWeek.Repositories;
 
 namespace RetroOfTheWeek
 {
@@ -26,6 +31,23 @@ namespace RetroOfTheWeek
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            // MySQL EF
+            services.AddTransient(_ => new MySqlConnection(Configuration["ConnectionStrings:Default"]));
+
+            // AutoMapper
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+            services.AddMvc();
+
+            // Dependency injection 
+            services.AddScoped<IRetroOfTheWeekRepository, RetroOfTheWeekRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +92,15 @@ namespace RetroOfTheWeek
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+        }
+    }
+
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            CreateMap<PostDto, PostModel>();
+            CreateMap<PostModel, PostDto>();
         }
     }
 }
