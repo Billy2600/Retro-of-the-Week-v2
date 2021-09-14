@@ -22,7 +22,8 @@ namespace RetroOfTheWeek.Repositories
         public async Task<PostDto> GetPost(int id)
         {
             await _connection.OpenAsync();
-            var command = new MySqlCommand($"SELECT `pid`, `title`, `text`, `poster_id`, `date`, `tags`, `img`, `thumb`, `email_author`, `hidden`, `views`, `rating`, `name`, `email` FROM `ret_posts` WHERE `pid` = {id}", _connection);
+            var command = new MySqlCommand("SELECT `pid`, `title`, `text`, `poster_id`, `date`, `tags`, `img`, `thumb`, `email_author`, `hidden`, `views`, `rating`, `name`, `email` FROM `ret_posts` WHERE `pid` = @pid", _connection);
+            command.Parameters.AddWithValue("@pid", id);
             var reader = await command.ExecuteReaderAsync();
 
             var post = new PostDto();
