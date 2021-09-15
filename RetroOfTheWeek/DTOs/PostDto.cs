@@ -23,5 +23,7 @@ namespace RetroOfTheWeek.DTOs
         public int Rating { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+
+        public UserDto Poster { get; set; }
     }
 }

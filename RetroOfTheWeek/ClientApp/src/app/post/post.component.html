@@ -1,4 +1,10 @@
 <p *ngIf="!post"><em>Loading...</em></p>
 
 <h1>{{ post.title }}</h1>
+<div>
+    Posted by <a href="/user/{{ post.poster.uid }}">{{ post.poster.username }}</a> on {{ post.date }}
+    <img src="http://retrooftheweek.net{{ post.poster.avatar }}" />
+    Tags: {{ post.tags }}
+    <a href="http://retrooftheweek.net{{ post.img }}"><img src="http://retrooftheweek.net{{ post.thumb }}" /></a>
+</div>
 <div [innerHTML]=[post.text]></div>

@@ -101,6 +101,8 @@ namespace RetroOfTheWeek
         {
             CreateMap<PostDto, PostModel>();
             CreateMap<PostModel, PostDto>();
+            CreateMap<UserDto, UserModel>();
+            CreateMap<UserModel, UserDto>();
         }
     }
 }
