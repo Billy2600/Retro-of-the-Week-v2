@@ -22,7 +22,7 @@ import { PostComponent } from './post/post-component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'post', component: PostComponent }
+      { path: 'post/:id', component: PostComponent }
     ])
   ],
   providers: [],
