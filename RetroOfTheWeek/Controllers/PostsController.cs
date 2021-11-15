@@ -30,5 +30,13 @@ namespace RetroOfTheWeek.Controllers
             var post = await _repo.GetPost(id);
             return _mapper.Map<PostModel>(post);
         }
+
+        [HttpGet]
+        [Route("Latest/{count}/{pagebreak:bool=false}")]
+        public async Task<List<PostModel>> GetLatestPosts(int count, bool pagebreak)
+        {
+            var posts = await _repo.GetLatestPosts(count, pagebreak);
+            return _mapper.Map<List<PostModel>>(posts);
+        }
     }
 }

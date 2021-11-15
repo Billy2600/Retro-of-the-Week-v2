@@ -9,5 +9,7 @@ namespace RetroOfTheWeek.Repositories
     public interface IRetroOfTheWeekRepository
     {
         public Task<PostDto> GetPost(int id);
+
+        Task<List<PostDto>> GetLatestPosts(int count, bool pagebreak);
     }
 }
