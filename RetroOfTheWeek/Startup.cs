@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MySql.Data.MySqlClient;
+using RetroOfTheWeek.Contexts;
 using RetroOfTheWeek.DTOs;
 using RetroOfTheWeek.Models;
 using RetroOfTheWeek.Repositories;
@@ -33,7 +35,12 @@ namespace RetroOfTheWeek
             });
 
             // MySQL EF
-            services.AddTransient(_ => new MySqlConnection(Configuration["ConnectionStrings:Default"]));
+            services.AddTransient(_ => new MySqlConnection(Configuration["ConnectionStrings:RetroOfTheWeek"]));
+            var mysqlConnectionStr = Configuration.GetConnectionString("RetroOfTheWeek");
+            services.AddDbContextPool<RetroOfTheWeekContext>(options => {
+                options.UseLazyLoadingProxies();
+                options.UseMySQL(mysqlConnectionStr);
+            });
 
             // AutoMapper
             var mapperConfig = new MapperConfiguration(mc =>

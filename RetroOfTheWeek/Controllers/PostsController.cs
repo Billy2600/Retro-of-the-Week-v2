@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using RetroOfTheWeek.Models;
 using RetroOfTheWeek.Repositories;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 
 namespace RetroOfTheWeek.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PostsController
+    public class PostsController : ControllerBase
     {
         private readonly IRetroOfTheWeekRepository _repo;
         private readonly IMapper _mapper;
@@ -25,18 +26,23 @@ namespace RetroOfTheWeek.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<PostModel> Get(int id)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PostModel))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Get(int id)
         {
             var post = await _repo.GetPost(id);
-            return _mapper.Map<PostModel>(post);
+
+            return post == null ? NotFound() : Ok(_mapper.Map<PostModel>(post));
         }
 
         [HttpGet]
         [Route("Latest/{count}/{pagebreak:bool=false}")]
-        public async Task<List<PostModel>> GetLatestPosts(int count, bool pagebreak)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<PostModel>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetLatestPosts(int count, bool pagebreak)
         {
             var posts = await _repo.GetLatestPosts(count, pagebreak);
-            return _mapper.Map<List<PostModel>>(posts);
+            return posts.Count == 0 ? NotFound() : Ok(_mapper.Map<List<PostModel>>(posts));
         }
     }
 }

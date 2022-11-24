@@ -7,7 +7,7 @@ namespace RetroOfTheWeek.Models
 {
     public class UserModel
     {
-        public int Uid { get; set; }
+        public int Id { get; set; }
         public string Username { get; set; }
         public string FName { get; set; }
         public string LName { get; set; }
