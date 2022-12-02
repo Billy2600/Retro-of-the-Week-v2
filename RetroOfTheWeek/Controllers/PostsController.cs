@@ -8,6 +8,7 @@ using RetroOfTheWeek.Models;
 using RetroOfTheWeek.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using RetroOfTheWeek.DTOs;
 
 namespace RetroOfTheWeek.Controllers
 {
@@ -43,6 +44,19 @@ namespace RetroOfTheWeek.Controllers
         {
             var posts = await _repo.GetLatestPosts(count, pagebreak);
             return posts.Count == 0 ? NotFound() : Ok(_mapper.Map<List<PostModel>>(posts));
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> AddPost([FromBody] PostModel post)
+        {
+            if (post == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var newPost = await _repo.AddPost(_mapper.Map<PostDto>(post));
+            return Ok(_mapper.Map<PostModel>(newPost));
         }
     }
 }

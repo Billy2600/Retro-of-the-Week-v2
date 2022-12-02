@@ -13,6 +13,7 @@ using System.Linq;
 using System.Data.Entity.Infrastructure;
 using Microsoft.Data.Sqlite;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace RetroOfTheWeekTests.Repositories
 {
@@ -102,6 +103,33 @@ namespace RetroOfTheWeekTests.Repositories
                     Assert.AreEqual(posts[i], results[i]);
                     Assert.AreEqual(-1, results[i].Text.IndexOf(pagebreakMarker));
                 }
+            }
+        }
+
+        [TestMethod]
+        public async Task AddPost_HappyPath()
+        {
+            // Arrange
+            var user = _fixture.Create<UserDto>(); // Need to already have a user to map to in the DB
+            var post = _fixture.Create<PostDto>();
+            post.PosterId = user.Id;
+            post.Poster = user;
+
+            using (var context = new RetroOfTheWeekContext(_contextOptions))
+            {
+                if (!context.Database.EnsureCreated())
+                    Assert.Fail("Context not created");
+
+                context.Users.Add(user);
+                context.SaveChanges();
+
+                var retroOfTheWekRepo = new RetroOfTheWeekRepository(context);
+
+                // Act
+                var result = await retroOfTheWekRepo.AddPost(post);
+
+                // Assert
+                Assert.AreEqual(result, post);
             }
         }
     }

@@ -11,5 +11,7 @@ namespace RetroOfTheWeek.Repositories
         public Task<PostDto> GetPost(int id);
 
         Task<List<PostDto>> GetLatestPosts(int count, bool pagebreak);
+
+        Task<PostDto> AddPost(PostDto post);
     }
 }
