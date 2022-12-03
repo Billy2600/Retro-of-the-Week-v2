@@ -58,5 +58,19 @@ namespace RetroOfTheWeek.Controllers
             var newPost = await _repo.AddPost(_mapper.Map<PostDto>(post));
             return Ok(_mapper.Map<PostModel>(newPost));
         }
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeletePost([FromQuery] int id)
+        {
+            if(id == 0)
+            {
+                throw new ArgumentException("Id cannot be zero");
+            }
+
+            await _repo.DeletePost(id);
+
+            return NoContent();
+        }
     }
 }

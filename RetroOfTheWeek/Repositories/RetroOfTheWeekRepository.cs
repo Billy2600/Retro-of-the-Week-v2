@@ -66,5 +66,17 @@ namespace RetroOfTheWeek.Repositories
             await _context.SaveChangesAsync();
             return await _context.Posts.OrderByDescending(p => p.Date).FirstOrDefaultAsync();
         }
+
+        public async Task DeletePost(int id)
+        {
+            var post = _context.Posts.First(p => p.Id == id);
+            // Don't attempt to remove poster
+            _context.Entry(post.Poster).State = EntityState.Detached;
+            // Need to add this to add post, call above marks whole post detached
+            _context.Entry(post).State = EntityState.Modified;
+
+            _context.Remove(post);
+            await _context.SaveChangesAsync();
+        }
     }
 }

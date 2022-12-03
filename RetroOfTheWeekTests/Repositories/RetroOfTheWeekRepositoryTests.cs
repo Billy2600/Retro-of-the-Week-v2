@@ -132,5 +132,29 @@ namespace RetroOfTheWeekTests.Repositories
                 Assert.AreEqual(result, post);
             }
         }
+
+        [TestMethod]
+        public async Task DeletePost_HappyPath()
+        {
+            // Arrange
+            var post = _fixture.Create<PostDto>();
+
+            using (var context = new RetroOfTheWeekContext(_contextOptions))
+            {
+                if (!context.Database.EnsureCreated())
+                    Assert.Fail("Context not created");
+
+                context.Posts.Add(post);
+                context.SaveChanges();
+
+                var retroOfTheWekRepo = new RetroOfTheWeekRepository(context);
+
+                // Act
+                await retroOfTheWekRepo.DeletePost(post.Id);
+
+                // Assert
+                Assert.AreEqual(0, context.Users.Where(p => p.Id == post.Id).Count());
+            }
+        }
     }
 }
