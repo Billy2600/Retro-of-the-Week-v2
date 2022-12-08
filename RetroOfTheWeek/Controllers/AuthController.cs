@@ -44,8 +44,8 @@ namespace RetroOfTheWeek.Controllers
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                 var token = new JwtSecurityToken(
-                issuer: "retroooftheweek.net",
-                audience: "retrooftheweek.net",
+                issuer: _config["JwtDomain"],
+                audience: _config["JwtDomain"],
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: creds);

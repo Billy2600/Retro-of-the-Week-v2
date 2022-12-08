@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using RetroOfTheWeek.DTOs;
 
 namespace RetroOfTheWeek.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PostsController : ControllerBase
@@ -25,6 +27,7 @@ namespace RetroOfTheWeek.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PostModel))]
@@ -36,6 +39,7 @@ namespace RetroOfTheWeek.Controllers
             return post == null ? NotFound() : Ok(_mapper.Map<PostModel>(post));
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("Latest/{count}/{pagebreak:bool=false}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<PostModel>))]

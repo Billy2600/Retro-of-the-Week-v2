@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,11 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using MySql.Data.MySqlClient;
 using RetroOfTheWeek.Contexts;
 using RetroOfTheWeek.DTOs;
 using RetroOfTheWeek.Models;
 using RetroOfTheWeek.Repositories;
+using System.Text;
 
 namespace RetroOfTheWeek
 {
@@ -42,6 +45,21 @@ namespace RetroOfTheWeek
                 options.UseMySQL(mysqlConnectionStr);
             });
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["JwtDomain"],
+                        ValidAudience = Configuration["JwtDomain"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecurityKey"]))
+                    };
+                });
+
             // AutoMapper
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -71,6 +89,8 @@ namespace RetroOfTheWeek
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
@@ -79,7 +99,7 @@ namespace RetroOfTheWeek
             }
 
             app.UseRouting();
-
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
