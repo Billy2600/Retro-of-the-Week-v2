@@ -7,18 +7,28 @@ using System.Text.RegularExpressions;
 using RetroOfTheWeek.DTOs;
 using RetroOfTheWeek.Contexts;
 using System.Runtime.InteropServices;
+using System.Text;
+using Microsoft.Extensions.ObjectPool;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Security.Cryptography;
+using Microsoft.Extensions.Configuration;
 
 namespace RetroOfTheWeek.Repositories
 {
     public class RetroOfTheWeekRepository : IRetroOfTheWeekRepository
     {
         private readonly RetroOfTheWeekContext _context;
+        private readonly IConfiguration _config;
 
         private const string pagebreakMarker = "<!-- pagebreak -->";
 
-        public RetroOfTheWeekRepository(RetroOfTheWeekContext context)
+        #region Public methods
+        public RetroOfTheWeekRepository(RetroOfTheWeekContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
 
         public async Task<PostDto> GetPost(int id)
@@ -78,5 +88,36 @@ namespace RetroOfTheWeek.Repositories
             _context.Remove(post);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<bool> LoginUser(string username, string password)
+        {
+            var user = await _context.Users.Where(u => u.Username == username).FirstOrDefaultAsync();
+            if (user == null)
+                return false;
+
+            if(user.Password == EncryptPassword(user.Id, user.Username, password))
+                return true;
+
+            return false;
+        }
+
+        #endregion
+
+        #region Private methods
+        private string EncryptPassword(int userId, string username, string password)
+        {
+            var encryptedPassowrd = string.Empty;
+
+            using (SHA1 sha1Hash = SHA1.Create())
+            {
+                var sourceBytes = Encoding.UTF8.GetBytes(userId.ToString("X") + username + password + _config["SecurityKey"]);
+                var hashBytes = sha1Hash.ComputeHash(sourceBytes);
+                encryptedPassowrd = BitConverter.ToString(hashBytes).Replace("-", string.Empty);
+            }
+
+            return encryptedPassowrd.ToLower();
+        }
+
+        #endregion
     }
 }

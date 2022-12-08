@@ -14,22 +14,24 @@ using System.Data.Entity.Infrastructure;
 using Microsoft.Data.Sqlite;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 
 namespace RetroOfTheWeekTests.Repositories
 {
     [TestClass]
     public class RetroOfTheWeekRepositoryTests
     {
-        private readonly Mapper _mapper;
         private Fixture _fixture;
         private SqliteConnection _connection;
         private DbContextOptions<RetroOfTheWeekContext> _contextOptions;
+        private Mock<IConfiguration> _mockConfig;
 
         private const string pagebreakMarker = "<!-- pagebreak -->";
 
         public RetroOfTheWeekRepositoryTests()
         {
             _fixture = new Fixture();
+            _mockConfig = new Mock<IConfiguration>();
         }
 
         [TestCleanup]
@@ -63,7 +65,7 @@ namespace RetroOfTheWeekTests.Repositories
                 context.Posts.Add(post);
                 context.SaveChanges();
 
-                var retroOfTheWekRepo = new RetroOfTheWeekRepository(context);
+                var retroOfTheWekRepo = new RetroOfTheWeekRepository(context, _mockConfig.Object);
 
                 // Act
                 var result = await retroOfTheWekRepo.GetPost(1);
@@ -92,7 +94,7 @@ namespace RetroOfTheWeekTests.Repositories
                 context.Posts.AddRange(posts);
                 context.SaveChanges();
 
-                var retroOfTheWekRepo = new RetroOfTheWeekRepository(context);
+                var retroOfTheWekRepo = new RetroOfTheWeekRepository(context, _mockConfig.Object);
 
                 // Act
                 var results = await retroOfTheWekRepo.GetLatestPosts(5, false);
@@ -123,7 +125,7 @@ namespace RetroOfTheWeekTests.Repositories
                 context.Users.Add(user);
                 context.SaveChanges();
 
-                var retroOfTheWekRepo = new RetroOfTheWeekRepository(context);
+                var retroOfTheWekRepo = new RetroOfTheWeekRepository(context, _mockConfig.Object);
 
                 // Act
                 var result = await retroOfTheWekRepo.AddPost(post);
@@ -147,13 +149,42 @@ namespace RetroOfTheWeekTests.Repositories
                 context.Posts.Add(post);
                 context.SaveChanges();
 
-                var retroOfTheWekRepo = new RetroOfTheWeekRepository(context);
+                var retroOfTheWekRepo = new RetroOfTheWeekRepository(context, _mockConfig.Object);
 
                 // Act
                 await retroOfTheWekRepo.DeletePost(post.Id);
 
                 // Assert
                 Assert.AreEqual(0, context.Users.Where(p => p.Id == post.Id).Count());
+            }
+        }
+
+        [TestMethod]
+        public async Task LoginUser_HappyPath()
+        {
+            // Arrange
+            var user = _fixture.Create<UserDto>();
+            user.Id = 73;
+            user.Username = "Usernameb7e836cf-9953-40ff-99a8-307a7ff698db";
+            user.Password = "8a13d66ce2561b4c0a815cf4b63dfbfe6e64b263";
+
+            _mockConfig.Setup(x => x["SecurityKey"]).Returns("e9488dd9-1c81-48ed-9069-1a2505ab9792");
+
+            using (var context = new RetroOfTheWeekContext(_contextOptions))
+            {
+                if (!context.Database.EnsureCreated())
+                    Assert.Fail("Context not created");
+
+                context.Users.Add(user);
+                context.SaveChanges();
+
+                var retroOfTheWekRepo = new RetroOfTheWeekRepository(context, _mockConfig.Object);
+
+                // Act
+                var result = await retroOfTheWekRepo.LoginUser(user.Username, "Passwordac65547e-1a14-4b14-a42d-9c116f1e3cf");
+
+                // Assert
+                Assert.IsTrue(result);
             }
         }
     }

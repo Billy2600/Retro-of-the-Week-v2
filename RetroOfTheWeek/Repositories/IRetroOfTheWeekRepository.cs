@@ -15,5 +15,7 @@ namespace RetroOfTheWeek.Repositories
         Task<PostDto> AddPost(PostDto post);
 
         Task DeletePost(int id);
+
+        Task<bool> LoginUser(string username, string password);
     }
 }
