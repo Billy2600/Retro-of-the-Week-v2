@@ -1,5 +1,5 @@
 export interface UserModel {
-    uid: number;
+    id: number;
     username: string;
     fName: string;
     lName: string;
