@@ -1,5 +1,5 @@
-# Retro of the Week V2
-[Retro of the Week](http://retrooftheweek.net/) was originally written on a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) stack. This is a re-write of it in the (much more modern) ASP.NET, .NET 5, C#, Angular 8 stack.
+# Retro of the Week V2 - Back End API
+[Retro of the Week](http://retrooftheweek.net/) was originally written on a [LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle)) stack. This is a re-write of it in the (much more modern) ASP.NET MVC, .NET 6, C#. This is the back end repo, the front end will be contained in another repo.
 
 ## Techonlogies
 - [ASP.NET](https://dotnet.microsoft.com/apps/aspnet)
