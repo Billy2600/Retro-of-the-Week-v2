@@ -9,3 +9,5 @@
 - [MySQL](https://dev.mysql.com/doc/)
     - Using the official [Entity Framework support](https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework60.html)
     - This is to use the same database from the original LAMP version
+- [MSTest](https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-mstest)
+    - For unit testing
