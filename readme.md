@@ -3,10 +3,9 @@
 
 ## Techonlogies
 - [ASP.NET](https://dotnet.microsoft.com/apps/aspnet)
-- [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
-    - Formerly known as ".Net Core", in contract to the .Net Framework, which was Windows only
+- [.NET 5](https://dotnet.microsoft.com/download/dotnet/6.0)
+    - Formerly known as ".Net Core", in contract to the .Net Framework, which was Windows only. This project was started a while go, the plan is to eventually upgrade to .NET 8
 - [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
-- [Angular 8](https://angular.io/docs)
 - [MySQL](https://dev.mysql.com/doc/)
     - Using the official [Entity Framework support](https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework60.html)
     - This is to use the same database from the original LAMP version
