@@ -3,7 +3,7 @@
 
 ## Techonlogies
 - [ASP.NET](https://dotnet.microsoft.com/apps/aspnet)
-- [.NET 5](https://dotnet.microsoft.com/download/dotnet/6.0)
+- [.NET 6](https://dotnet.microsoft.com/download/dotnet/6.0)
     - Formerly known as ".Net Core", in contract to the .Net Framework, which was Windows only. This project was started a while go, the plan is to eventually upgrade to .NET 8
 - [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
 - [MySQL](https://dev.mysql.com/doc/)
