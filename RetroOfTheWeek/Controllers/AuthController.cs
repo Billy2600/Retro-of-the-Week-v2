@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RetroOfTheWeek.Models;
 using RetroOfTheWeek.Repositories;
+using RetroOfTheWeekShared.Models;
 using System;
 using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
@@ -50,9 +51,9 @@ namespace RetroOfTheWeek.Controllers
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: creds);
 
-                return Ok(new
+                return Ok(new TokenResultModel()
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(token)
+                    Token = new JwtSecurityTokenHandler().WriteToken(token)
                 });
             }
 
