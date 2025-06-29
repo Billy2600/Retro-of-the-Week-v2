@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RetroOfTheWeek\RetroOfTheWeek.csproj" />
+    <ProjectReference Include="..\RetroOfTheWeek\RetroOfTheWeekAPI.csproj" />
   </ItemGroup>
 
 </Project>
