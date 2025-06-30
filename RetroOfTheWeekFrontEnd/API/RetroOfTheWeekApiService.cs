@@ -11,15 +11,24 @@ namespace RetroOfTheWeekFrontEnd.API
     {
         protected readonly HttpClient _httpClient;
         private readonly ILogger<RetroOfTheWeekApiService> _logger;
+        private readonly IConfiguration _configuration;
 
-        public RetroOfTheWeekApiService(HttpClient httpClient, ILogger<RetroOfTheWeekApiService> logger)
+        public RetroOfTheWeekApiService(HttpClient httpClient, ILogger<RetroOfTheWeekApiService> logger, IConfiguration configuration)
         {
             _httpClient = httpClient;
             _logger = logger;
+            _configuration = configuration;
+
+            _httpClient.BaseAddress = new Uri(_configuration.GetValue<string>("BackendApiUrl") ?? string.Empty);
         }
 
         public async Task<T?> GetAsync<T>(string endpoint)
         {
+            if (string.IsNullOrWhiteSpace(endpoint))
+            {
+                throw new ArgumentException("Endpoint cannot be null or empty", nameof(endpoint));
+            }
+
             return await _httpClient.GetFromJsonAsync<T>(endpoint);
         }
 

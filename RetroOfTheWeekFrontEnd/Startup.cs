@@ -1,4 +1,5 @@
 ﻿using RetroOfTheWeekFrontEnd.API;
+using RetroOfTheWeekFrontEnd.API.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
 namespace RetroOfTheWeekFrontEnd
@@ -17,12 +18,8 @@ namespace RetroOfTheWeekFrontEnd
             // Add services to the container.
             services.AddControllersWithViews();
 
-            var backendUrl = Configuration.GetValue<string>("BackendApiUrl") ?? string.Empty;
-
-            services.AddHttpClient<RetroOfTheWeekApiService>(client =>
-            {
-                client.BaseAddress = new Uri(backendUrl);
-            });
+            services.AddHttpClient();
+            services.AddSingleton<IPostsApiService, PostsApiService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

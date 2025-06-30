@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RetroOfTheWeek.Models;
 using RetroOfTheWeekFrontEnd.API;
+using RetroOfTheWeekFrontEnd.API.Interfaces;
 using RetroOfTheWeekFrontEnd.Models;
 using System.Diagnostics;
 
@@ -9,23 +10,17 @@ namespace RetroOfTheWeekFrontEnd.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly RetroOfTheWeekApiService _apiService;
+        private readonly IPostsApiService _postsApiService;
 
-        public HomeController(ILogger<HomeController> logger, RetroOfTheWeekApiService apiService)
+        public HomeController(ILogger<HomeController> logger, IPostsApiService postsApiService)
         {
             _logger = logger;
-            _apiService = apiService;
+            _postsApiService = postsApiService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var tokenRequest = new TokenRequestModel
-            {
-                Username = "billy",
-                Password = "password"
-            };
-
-            var securityToken = await _apiService.GetSecurityToken(tokenRequest);
+            var latestPosts = await _postsApiService.GetLatestPosts(5, true);
             return View();
         }
 

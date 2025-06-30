@@ -4,11 +4,7 @@
     {
         public class Posts
         {
-            public const string GetPosts = "api/posts";
-            public const string GetPostById = "api/posts/{id}";
-            public const string CreatePost = "api/posts";
-            public const string UpdatePost = "api/posts/{id}";
-            public const string DeletePost = "api/posts/{id}";
+            public const string GetLatestPosts = "/Posts/Latest/{0}/{1}";
         }
 
         public class Auth
