@@ -1,49 +1,53 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RetroOfTheWeekFrontEnd</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/RetroOfTheWeekFrontEnd.styles.css" asp-append-version="true" />
+<title>Retro Of The Week - @ViewData["Title"]</title>
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RetroOfTheWeekFrontEnd</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <h1>Retro Of The Week</h1>
+
+    <h2><a href="#">Home</a> - <a href="http://retrooftheweek.net/tags/retro/">Retro</a> - <a href="http://retrooftheweek.net/tags/modern/">Modern</a> - <a href="http://retrooftheweek.net/tags/top%2010/">Top 10</a> - <a href="http://retrooftheweek.net/tags/other/">Other</a> - <a href="http://retrooftheweek.net/about/">About</a></h2>
+
+    <div id="sidebar">
+        <h3>Search</h3>
+        <input type="text" name="q" size="10" placeholder="Search" />
+        <input type="submit" value="Submit" />
+
+        <h3>Popular</h3>
+        <ul>
+            <li><a href="http://retrooftheweek.net/p/158/">Top 10 Sega Genesis Games</a></li>
+            <li><a href="http://retrooftheweek.net/p/181/">Why Does Doom Get Ported To Everything?</a></li>
+            <li><a href="http://retrooftheweek.net/p/167/">Game and Watch Gallery 4</a></li>
+            <li><a href="http://retrooftheweek.net/p/150/">Newton's Laws in Video Games</a></li>
+            <li><a href="http://retrooftheweek.net/p/155/">A Link to the Past</a></li>
+        </ul>
+
+        <h3>Random</h3>
+        <ul>
+            <li><a href="http://retrooftheweek.net/p/158/">Top 10 Sega Genesis Games</a></li>
+            <li><a href="http://retrooftheweek.net/p/181/">Why Does Doom Get Ported To Everything?</a></li>
+            <li><a href="http://retrooftheweek.net/p/167/">Game and Watch Gallery 4</a></li>
+            <li><a href="http://retrooftheweek.net/p/150/">Newton's Laws in Video Games</a></li>
+            <li><a href="http://retrooftheweek.net/p/155/">A Link to the Past</a></li>
+        </ul>
+
+        <h3>Contributors</h3>
+        <ul>
+            <li><a href="http://retrooftheweek.net/u/1/">Billy</a></li>
+            <li><a href="http://retrooftheweek.net/u/2/">Swifto</a></li>
+            <li><a href="http://retrooftheweek.net/u/3/">Metal_Kitty666</a></li>
+            <li><a href="http://retrooftheweek.net/u/6/">Lazlo Falconi</a></li>
+            <li><a href="http://retrooftheweek.net/u/14/">Gilgamesh</a></li>
+            <li><a href="http://retrooftheweek.net/u/16/">Royale H. Duke</a></li>
+            <li><a href="http://retrooftheweek.net/u/298/">Davrinsky sky</a></li>
+            <li><a href="http://retrooftheweek.net/u/477/">GamersTavern</a></li>
+            <li><a href="http://retrooftheweek.net/u/483/">Xteven Xavier</a></li>
+        </ul>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - RetroOfTheWeekFrontEnd - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <div id="main">
+        @RenderBody()
+    </div>
 </body>
 </html>

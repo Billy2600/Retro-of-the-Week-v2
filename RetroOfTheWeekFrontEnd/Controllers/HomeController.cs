@@ -20,8 +20,8 @@ namespace RetroOfTheWeekFrontEnd.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var latestPosts = await _postsApiService.GetLatestPosts(5, true);
-            return View();
+            var latestPosts = await _postsApiService.GetLatestPosts(5, false);
+            return View(latestPosts);
         }
 
         public IActionResult Privacy()
