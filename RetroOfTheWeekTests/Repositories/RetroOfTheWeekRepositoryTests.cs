@@ -79,7 +79,7 @@ namespace RetroOfTheWeekTests.Repositories
         public async Task GetLatestPosts_HappyPath()
         {
             // Arrange
-            var posts = _fixture.CreateMany<PostDto>(5).OrderByDescending(p => p.Date).ToList();
+            var posts = _fixture.CreateMany<PostDto>(10).OrderByDescending(p => p.Date).ToList();
 
             foreach (var post in posts)
             {
@@ -99,8 +99,10 @@ namespace RetroOfTheWeekTests.Repositories
                 // Act
                 var results = await retroOfTheWekRepo.GetLatestPosts(5, false);
 
+                Assert.AreEqual(5, results.Count);
+
                 // Assert
-                for(int i = 0; i < posts.Count(); i++)
+                for (int i = 0; i < results.Count(); i++)
                 {
                     Assert.AreEqual(posts[i], results[i]);
                     Assert.AreEqual(-1, results[i].Text.IndexOf(pagebreakMarker));

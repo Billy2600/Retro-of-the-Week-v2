@@ -44,6 +44,7 @@ namespace RetroOfTheWeek.Repositories
         {
             var posts = await _context.Posts
                 .OrderByDescending(p => p.Date)
+                .Take(count)
                 .ToListAsync();
 
             foreach(var post in posts)
