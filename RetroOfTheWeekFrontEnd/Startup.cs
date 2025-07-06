@@ -20,6 +20,7 @@ namespace RetroOfTheWeekFrontEnd
 
             services.AddHttpClient();
             services.AddSingleton<IPostsApiService, PostsApiService>();
+            services.AddSingleton<ICommentsApiService, CommentsApiService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

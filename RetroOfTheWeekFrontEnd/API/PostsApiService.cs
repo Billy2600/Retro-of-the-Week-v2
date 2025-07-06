@@ -27,5 +27,20 @@ namespace RetroOfTheWeekFrontEnd.API
                 throw new Exception($"Error requesting LatestPosts: {ex.Message}");
             }
         }
+
+        public async Task<PostModel?> GetPost(int id)
+        {
+            try
+            {
+                var endpoint = string.Format(EndpointPathConstants.Posts.GetPost, id);
+                var post = await GetAsync<PostModel>(endpoint);
+                return post;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw new Exception($"Error requesting Post with ID {id}: {ex.Message}");
+            }
+        }
     }
 }

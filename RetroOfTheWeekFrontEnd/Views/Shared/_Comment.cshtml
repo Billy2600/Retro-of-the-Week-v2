@@ -1,0 +1,15 @@
+﻿@model RetroOfTheWeekShared.Models.CommentModel
+
+<div class="comment_body">
+    <p class="poster">
+        @if (@Model.Poster != null)
+            @Model.Poster.Username
+        else
+            @Model.Name
+    </p>
+    <p class="comment_date">@Model.Date.ToString("g")</p>
+    <hr />
+    @Model.Text
+
+    <p><input type="button" value="Repy" /></p>
+</div>

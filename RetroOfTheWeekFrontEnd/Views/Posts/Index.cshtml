@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+@model Tuple<RetroOfTheWeek.Models.PostModel, List<RetroOfTheWeekShared.Models.CommentModel>>
+
+<partial name="~/Views/Shared/_Post.cshtml" , model="@Model.Item1" />
+
+<h2>Comments</h2>
+<hr />
+
+@{
+    double lastReply = 0;
+    int numReplies = 0;
+}
+
+@foreach (var comment in Model.Item2)
+{
+    double margin = 0;
+
+    if (comment.Reply > 0)
+    {
+        numReplies++;
+        margin += numReplies * 2;
+    }
+    else
+    {
+        numReplies = 0;
+        margin = 0;
+    }
+
+    lastReply = comment.Reply;
+
+    <div style="margin-left: @(margin)%">
+        <partial name="~/Views/Shared/_Comment.cshtml" model="comment" />
+    </div> 
+}

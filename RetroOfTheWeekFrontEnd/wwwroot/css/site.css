@@ -36,3 +36,17 @@ h {
     margin-right: 0.5%;
     margin-bottom: 0.5%;
 }
+
+.comment_body {
+    margin-bottom: 5%;
+}
+
+.comment_body .poster {
+    font-weight: bold;
+    font-size: 115%;
+}
+
+.comment_body hr {
+    width: 95%;
+    color: #00008b;
+}
