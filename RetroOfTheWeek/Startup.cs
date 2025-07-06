@@ -14,6 +14,8 @@ using RetroOfTheWeek.Contexts;
 using RetroOfTheWeek.DTOs;
 using RetroOfTheWeek.Models;
 using RetroOfTheWeek.Repositories;
+using RetroOfTheWeekAPI.DTOs;
+using RetroOfTheWeekShared.Models;
 using System.Text;
 
 namespace RetroOfTheWeek
@@ -33,7 +35,6 @@ namespace RetroOfTheWeek
             services.AddControllersWithViews();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
-            // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -123,6 +124,7 @@ namespace RetroOfTheWeek
             CreateMap<PostModel, PostDto>();
             CreateMap<UserDto, UserModel>();
             CreateMap<UserModel, UserDto>();
+            CreateMap<CommentDto, CommentModel>();
         }
     }
 }

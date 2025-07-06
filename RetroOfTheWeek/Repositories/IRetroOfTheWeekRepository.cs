@@ -1,4 +1,5 @@
 ﻿using RetroOfTheWeek.DTOs;
+using RetroOfTheWeekAPI.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,7 @@ namespace RetroOfTheWeek.Repositories
         Task DeletePost(int id);
 
         Task<bool> LoginUser(string username, string password);
+
+        Task<List<CommentDto>> GetPostComments(int postId);
     }
 }

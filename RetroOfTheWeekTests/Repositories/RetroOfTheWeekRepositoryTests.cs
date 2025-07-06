@@ -15,6 +15,7 @@ using Microsoft.Data.Sqlite;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using RetroOfTheWeekAPI.DTOs;
 
 namespace RetroOfTheWeekTests.Repositories
 {
@@ -187,6 +188,37 @@ namespace RetroOfTheWeekTests.Repositories
 
                 // Assert
                 Assert.IsTrue(result);
+            }
+        }
+
+        [TestMethod]
+        public async Task GetPostComments_HappyPath()
+        {
+            // Arrange
+            var post = _fixture.Create<PostDto>();
+            post.Id = 1;
+            var comments = _fixture.CreateMany<CommentDto>(5).ToList();
+            foreach (var comment in comments)
+            {
+                comment.PostId = post.Id;
+            }
+
+            using (var context = new RetroOfTheWeekContext(_contextOptions))
+            {
+                if (!context.Database.EnsureCreated())
+                    Assert.Fail("Context not created");
+
+                context.Posts.Add(post);
+                context.Comments.AddRange(comments);
+                context.SaveChanges();
+
+                var retroOfTheWekRepo = new RetroOfTheWeekRepository(context, _mockConfig.Object);
+
+                // Act
+                var result = await retroOfTheWekRepo.GetPostComments(post.Id);
+                // Assert
+                Assert.AreEqual(5, result.Count);
+                CollectionAssert.AreEquivalent(comments, result);
             }
         }
     }

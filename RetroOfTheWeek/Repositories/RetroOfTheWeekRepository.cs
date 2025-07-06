@@ -14,6 +14,7 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Configuration;
+using RetroOfTheWeekAPI.DTOs;
 
 namespace RetroOfTheWeek.Repositories
 {
@@ -83,7 +84,7 @@ namespace RetroOfTheWeek.Repositories
             var post = _context.Posts.First(p => p.Id == id);
             // Don't attempt to remove poster
             _context.Entry(post.Poster).State = EntityState.Detached;
-            // Need to add this to add post, call above marks whole post detached
+            // Need to add this to delete post, call above marks whole post detached
             _context.Entry(post).State = EntityState.Modified;
 
             _context.Remove(post);
@@ -100,6 +101,22 @@ namespace RetroOfTheWeek.Repositories
                 return true;
 
             return false;
+        }
+
+        public async Task<List<CommentDto>> GetPostComments(int postId)
+        {
+            var comments = await _context.Comments
+                .Where(c => c.PostId == postId)
+                .OrderBy(c => c.Date)
+                .ThenBy(c => c.Reply) // If this is a reply to a comment, it needs to come after it
+                .ToListAsync();
+
+            foreach(var comment in comments)
+            {
+                comment.Text = comment.Text.Replace("\\'", "'");
+            }
+
+            return comments;
         }
 
         #endregion

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
 using RetroOfTheWeek.DTOs;
+using RetroOfTheWeekAPI.DTOs;
 
 namespace RetroOfTheWeek.Contexts
 {
@@ -14,6 +15,7 @@ namespace RetroOfTheWeek.Contexts
         // Virtual so they can be mocked for unit tests
         public virtual DbSet<PostDto> Posts { get; set; }
         public virtual DbSet<UserDto> Users { get; set; }
+        public virtual DbSet<CommentDto> Comments { get; set; }
 
         public RetroOfTheWeekContext(DbContextOptions<RetroOfTheWeekContext> options) : base(options) { }
 
