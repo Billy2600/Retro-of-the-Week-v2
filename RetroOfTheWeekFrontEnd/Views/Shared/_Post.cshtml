@@ -1,8 +1,20 @@
 ﻿@model RetroOfTheWeekShared.Models.PostModel
+@{
+    List<string> tags = Model.Tags.Split(',').ToList();
+}
+
 <div class="post_body">
     <h2>@Model.Title</h2>
-    Posted by <a href="http://retrooftheweek.net/u/1/">@Model.Poster.FName</a> on @Model.Date
+    Posted by <a href="http://retrooftheweek.net/u/1/">@Model.Poster?.FName</a> on @Model.Date
     @Html.Raw(Model.Text)
     <p><a href="/p/@Model.Id">Continue Reading »</a></p>
-    <p><a href="/p/@Model.Id#comments">@Model.NumComments comment(s)</a> | Tags: <a href="http://retrooftheweek.net/tags/doom/">Doom</a>, <a href="http://retrooftheweek.net/tags/programming/">programming</a>, <a href="http://retrooftheweek.net/tags/1993/">1993</a>, <a href="http://retrooftheweek.net/tags/retro/">Retro</a></p>
+    <p><a href="/p/@Model.Id#comments">@Model.NumComments comment(s)</a> | Tags:
+    @for(int i = 0; i < tags.Count; i++)
+    {
+        var tag = tags[i].Trim();
+        if(!string.IsNullOrEmpty(tag))
+        {
+            <a href="/tags/@tag">@tag</a> 
+        }
+    }</p>
 </div>
