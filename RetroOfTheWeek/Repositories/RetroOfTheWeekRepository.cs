@@ -37,6 +37,10 @@ namespace RetroOfTheWeekAPI.Repositories
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
 
+            post.NumComments = _context.Comments
+                .Where(c => c.PostId == post.Id)
+                .Count();
+
             return post;
         }
 
@@ -52,10 +56,16 @@ namespace RetroOfTheWeekAPI.Repositories
                 if (pagebreak)
                 {
                     post.Text = Regex.Unescape(post.Text.Split(pagebreakMarker).First());
+                    post.NumComments = _context.Comments
+                        .Where(c => c.PostId == post.Id)
+                        .Count();
                 }
                 else
                 {
                     post.Text = post.Text.Replace(pagebreakMarker, string.Empty);
+                    post.NumComments = _context.Comments
+                        .Where(c => c.PostId == post.Id)
+                        .Count();
                 }
             }
 

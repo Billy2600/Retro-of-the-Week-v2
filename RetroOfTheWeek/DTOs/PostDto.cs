@@ -28,6 +28,8 @@ namespace RetroOfTheWeekAPI.DTOs
         public int Rating { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        [NotMapped] // Need to do a query to get this
+        public int NumComments { get; set; }
 
         [ForeignKey("PosterId")]
         public virtual UserDto Poster { get; set; } // Virtual enables lazy loading
