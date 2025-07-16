@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using RetroOfTheWeek.DTOs;
-using RetroOfTheWeek.Contexts;
+using RetroOfTheWeekAPI.DTOs;
+using RetroOfTheWeekAPI.Contexts;
 using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.Extensions.ObjectPool;
@@ -14,9 +14,8 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Security.Cryptography;
 using Microsoft.Extensions.Configuration;
-using RetroOfTheWeekAPI.DTOs;
 
-namespace RetroOfTheWeek.Repositories
+namespace RetroOfTheWeekAPI.Repositories
 {
     public class RetroOfTheWeekRepository : IRetroOfTheWeekRepository
     {

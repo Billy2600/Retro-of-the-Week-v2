@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home";
 }
-@model Tuple<RetroOfTheWeek.Models.PostModel, List<RetroOfTheWeekShared.Models.CommentModel>>
+@model Tuple<RetroOfTheWeekShared.Models.PostModel, List<RetroOfTheWeekShared.Models.CommentModel>>
 
 <partial name="~/Views/Shared/_Post.cshtml" , model="@Model.Item1" />
 

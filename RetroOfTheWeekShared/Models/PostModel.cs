@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RetroOfTheWeek.Models
+namespace RetroOfTheWeekShared.Models
 {
     public class PostModel
     {
@@ -18,7 +18,8 @@ namespace RetroOfTheWeek.Models
         public int? Rating { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        public int NumComments { get; set; }
 
-        public UserModel Poster { get; set; }
+        public UserModel? Poster { get; set; }
     }
 }

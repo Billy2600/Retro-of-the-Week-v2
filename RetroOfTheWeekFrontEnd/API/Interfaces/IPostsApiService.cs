@@ -1,4 +1,4 @@
-﻿using RetroOfTheWeek.Models;
+﻿using RetroOfTheWeekShared.Models;
 
 namespace RetroOfTheWeekFrontEnd.API.Interfaces
 {

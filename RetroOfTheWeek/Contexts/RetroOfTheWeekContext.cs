@@ -5,10 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MySql.EntityFrameworkCore.Extensions;
-using RetroOfTheWeek.DTOs;
 using RetroOfTheWeekAPI.DTOs;
 
-namespace RetroOfTheWeek.Contexts
+namespace RetroOfTheWeekAPI.Contexts
 {
     public class RetroOfTheWeekContext : DbContext
     {

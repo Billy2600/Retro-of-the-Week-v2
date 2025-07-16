@@ -10,15 +10,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using MySql.Data.MySqlClient;
-using RetroOfTheWeek.Contexts;
-using RetroOfTheWeek.DTOs;
-using RetroOfTheWeek.Models;
-using RetroOfTheWeek.Repositories;
+using RetroOfTheWeekAPI.Contexts;
 using RetroOfTheWeekAPI.DTOs;
 using RetroOfTheWeekShared.Models;
+using RetroOfTheWeekAPI.Repositories;
 using System.Text;
 
-namespace RetroOfTheWeek
+namespace RetroOfTheWeekAPI
 {
     public class Startup
     {

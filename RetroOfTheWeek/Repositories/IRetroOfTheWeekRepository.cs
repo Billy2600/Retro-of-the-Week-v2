@@ -1,11 +1,10 @@
-﻿using RetroOfTheWeek.DTOs;
-using RetroOfTheWeekAPI.DTOs;
+﻿using RetroOfTheWeekAPI.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RetroOfTheWeek.Repositories
+namespace RetroOfTheWeekAPI.Repositories
 {
     public interface IRetroOfTheWeekRepository
     {

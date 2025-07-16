@@ -1,4 +1,4 @@
-﻿namespace RetroOfTheWeek.Models
+﻿namespace RetroOfTheWeekShared.Models
 {
     public class TokenRequestModel
     {

@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RetroOfTheWeek.Models;
-using RetroOfTheWeek.Repositories;
+using RetroOfTheWeekAPI.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using RetroOfTheWeek.DTOs;
+using RetroOfTheWeekAPI.DTOs;
+using RetroOfTheWeekShared.Models;
 
-namespace RetroOfTheWeek.Controllers
+namespace RetroOfTheWeekAPI.Controllers
 {
     [Authorize]
     [ApiController]

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RetroOfTheWeek.DTOs
+namespace RetroOfTheWeekAPI.DTOs
 {
     [Table("ret_posts")]
     public class PostDto

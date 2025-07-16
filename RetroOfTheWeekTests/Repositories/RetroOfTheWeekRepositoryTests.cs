@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Threading.Tasks;
-using RetroOfTheWeek.Repositories;
-using RetroOfTheWeek.DTOs;
-using RetroOfTheWeek.Models;
+using RetroOfTheWeekAPI.Repositories;
+using RetroOfTheWeekAPI.DTOs;
+using RetroOfTheWeekShared.Models;
 using AutoMapper;
-using RetroOfTheWeek.Contexts;
+using RetroOfTheWeekAPI.Contexts;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity.Infrastructure;
@@ -15,9 +15,8 @@ using Microsoft.Data.Sqlite;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using RetroOfTheWeekAPI.DTOs;
 
-namespace RetroOfTheWeekTests.Repositories
+namespace RetroOfTheWeekAPITests.Repositories
 {
     [TestClass]
     public class RetroOfTheWeekRepositoryTests

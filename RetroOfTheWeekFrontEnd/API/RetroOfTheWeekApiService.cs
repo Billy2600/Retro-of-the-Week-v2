@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using RetroOfTheWeek.Models;
+using RetroOfTheWeekShared.Models;
 using RetroOfTheWeekFrontEnd.Controllers;
 using RetroOfTheWeekShared.Models;
 using System.IdentityModel.Tokens.Jwt;

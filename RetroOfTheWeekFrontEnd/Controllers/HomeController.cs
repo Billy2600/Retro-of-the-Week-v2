@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using RetroOfTheWeek.Models;
+using RetroOfTheWeekShared.Models;
 using RetroOfTheWeekFrontEnd.API;
 using RetroOfTheWeekFrontEnd.API.Interfaces;
 using RetroOfTheWeekFrontEnd.Models;

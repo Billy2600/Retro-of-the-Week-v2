@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RetroOfTheWeek.Models;
-using RetroOfTheWeek.Repositories;
 using RetroOfTheWeekShared.Models;
+using RetroOfTheWeekAPI.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
